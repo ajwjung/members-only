@@ -19,6 +19,7 @@ const SQL = `
 	CREATE TABLE IF NOT EXISTS messages (
 		id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 		author INTEGER references members(id),
+		date TIMESTAMP DEFAULT NOW(),
 		title varchar ( 255 ),
 		content varchar ( 255 )
 	);
