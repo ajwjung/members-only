@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+</head>
+<body>
+  <h1>Register a New User</h1>
+  <form action="/users/register" method="POST">
+    <div class="form-field">
+      <label for="fullname">Full name:</label>
+      <input type="text" name="fullName" id="fullname">
+    </div>
+    <div class="form-field">
+      <label for="username">Username (email):</label>
+      <input type="email" name="username" id="username">
+    </div>
+    <div class="form-field">
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="password">
+    </div>
+    <div class="form-field">
+      <label for="membership-status">Would you like to be a club member?</label>
+      <input type="hidden" name="membershipStatus" value="false">
+      <input type="checkbox" name="membershipStatus" id="membership-status" value="true">
+    </div>
+    <div class="form-field">
+      <label for="admin-status">Are you an admin?</label>
+      <input type="hidden" name="adminStatus" value="false">
+      <input type="checkbox" name="adminStatus" id="admin-status" value="true">
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+
+  <a href="/">Back to Home</a>
+</body>
+</html>

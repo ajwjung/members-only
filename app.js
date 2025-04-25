@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const path = require("node:path");
 const express = require("express");
+const membersRouter = require("./routes/membersRouter");
 
 const app = express();
 
@@ -10,8 +11,10 @@ app.set("view engine", "ejs");
 
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", (req, res) => {
-	res.render("index", { title: "Home" });
+app.use("/", membersRouter);
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(err.statusCode || 500).send(err.message || "Something went wrong");
 });
 
 const PORT = process.env.PORT || 3000;
