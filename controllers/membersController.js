@@ -84,9 +84,14 @@ const getLoginPage = asyncHandler(async (req, res, next) => {
   res.render("login", { title: "Login" });
 });
 
+const getDashboard = asyncHandler(async (req, res, next) => {
+  res.render("dashboard", { title: "Dashboard", user: req.user });
+});
+
 module.exports = {
   getHomePage,
   getRegistrationForm,
   createNewUser,
   getLoginPage,
+  getDashboard,
 }

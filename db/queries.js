@@ -17,6 +17,44 @@ async function addNewUser(fullname, username, password, membership, admin) {
   }
 };
 
+async function getUserByUsername(username) {
+  const SQL = `
+    SELECT * FROM members
+    WHERE username = $1
+  `;
+
+  try {
+    const { rows } = await pool.query(SQL, [username]);
+    return rows;
+  } catch (error) {
+    console.error("Error querying for user information from database", {
+      message: error.message,
+      stack: error.stack,
+      query: SQL
+    });
+  };
+};
+
+async function getUserById(userId) {
+  const SQL = `
+    SELECT * FROM members
+    WHERE id = $1
+  `;
+
+  try {
+    const { rows } = await pool.query(SQL, [userId]);
+    return rows;
+  } catch (error) {
+    console.error("Error querying for user information from database", {
+      message: error.message,
+      stack: error.stack,
+      query: SQL
+    });
+  };
+};
+
 module.exports = {
   addNewUser,
+  getUserByUsername,
+  getUserById,
 }
