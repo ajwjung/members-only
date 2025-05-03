@@ -4,11 +4,19 @@ const bcrypt = require("bcryptjs");
 const membersDb = require("../db/queries");
 
 const getHomePage = asyncHandler(async (req, res, next) => {
-  res.render("index", { title: "Home Page"})
-})
+  if (req.isAuthenticated()) {
+    res.render("index", { title: "Home Page", user: req.user });
+  } else {
+    res.render("index", { title: "Home Page" });
+  }
+});
 
 const getRegistrationForm = asyncHandler(async (req, res, next) => {
-  res.render("registerUser", { title: "User Registration", });
+  if (req.isAuthenticated()) {
+    res.redirect("/dashboard");
+  } else {
+    res.render("registerUser", { title: "User Registration", });
+  }
 });
 
 const alphaErr = "must only contain letters.";
@@ -81,11 +89,19 @@ const postUserToDb = asyncHandler(async (req, res, next) => {
 const createNewUser = [validateUserInfo, postUserToDb];
 
 const getLoginPage = asyncHandler(async (req, res, next) => {
-  res.render("login", { title: "Login" });
+  if (req.isAuthenticated()) {
+    res.redirect("/dashboard");
+  } else {
+    res.render("login", { title: "Login" });
+  }
 });
 
 const getDashboard = asyncHandler(async (req, res, next) => {
-  res.render("dashboard", { title: "Dashboard", user: req.user });
+  if (req.isAuthenticated()) {
+    res.render("dashboard", { title: "Dashboard", user: req.user });
+  } else {
+    res.redirect("/login");
+  }
 });
 
 module.exports = {

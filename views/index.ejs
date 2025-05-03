@@ -7,14 +7,19 @@
 </head>
 <body>
   <h1><%= title %></h1>
-  <p>Welcome to the Club House!</p>
-  <ul className="list">
-    <li className="list-item">
-      <a href="/users/register">Register New User</a>
-    </li>
-    <li className="list-item">
-      <a href="/login">Log In</a>
-    </li>
-  </ul>
+  <% if (locals.user) { %>
+    <p>Welcome back to the Club House, <%= user.fullname %>!</p>
+    <a href="/dashboard">Go to Dashboard</a>
+  <% } else { %>
+    <p>Welcome to the Club House!</p>
+    <ul className="list">
+      <li className="list-item">
+        <a href="/users/register">Register New User</a>
+      </li>
+      <li className="list-item">
+        <a href="/login">Log In</a>
+      </li>
+    </ul>
+  <% } %>
 </body>
 </html>
