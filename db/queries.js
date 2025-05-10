@@ -53,8 +53,26 @@ async function getUserById(userId) {
   };
 };
 
+async function postNewMessage(userId, messageTitle, messageContent) {
+  const SQL = `
+    INSERT INTO messages (author, title, content)
+    VALUES ($1, $2, $3);
+  `;
+
+  try {
+    await pool.query(SQL, [userId, messageTitle, messageContent]);
+  }  catch (error) {
+    console.error("Error inserting new message into database", {
+      message: error.message,
+      stack: error.stack,
+      query: SQL
+    });
+  };
+};
+
 module.exports = {
   addNewUser,
   getUserByUsername,
   getUserById,
+  postNewMessage,
 }

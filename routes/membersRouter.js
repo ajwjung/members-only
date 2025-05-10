@@ -16,4 +16,7 @@ membersRouter.post("/login", passport.authenticate("local", {
   failureRedirect: "/login",
 }));
 
+membersRouter.get("/messages/new", membersController.getNewMessageForm);
+membersRouter.post("/messages/new", membersController.createNewMessage);
+
 module.exports = membersRouter;

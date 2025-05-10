@@ -104,10 +104,62 @@ const getDashboard = asyncHandler(async (req, res, next) => {
   }
 });
 
+const getNewMessageForm = asyncHandler(async (req, res, next) => {
+  if (req.isAuthenticated()) {
+    res.render("createMessage", { title: "New Message" });
+  } else {
+    res.redirect("/login");
+  }
+});
+
+const cannotBeEmptyErr = "cannot be empty."
+const titleLengthErr = "must be between 2-60 characters long."
+const messageLengthErr = "must be between 2 and 5000 characters long."
+
+// Sanitize and validate the data
+const validateMessage = [
+  body("messageTitle").trim()
+    .notEmpty().withMessage(`Message title ${cannotBeEmptyErr}`)
+    .isLength({ min: 2, max: 60}).withMessage(`Message title ${titleLengthErr}`),
+  body("messageContent").trim()
+    .notEmpty().withMessage(`Message content ${cannotBeEmptyErr}`)
+    .isLength({ min: 2, max: 5000 }).withMessage(`Message content ${messageLengthErr}`)
+];
+
+const postNewMessage = asyncHandler(async (req, res, next) => {
+  // handle any errors from validation (if any)
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).render("createMessage", {
+      title: "New Message",
+      errors: errors.array(),
+    });
+  };
+
+  try {
+    const message = req.body;
+    await membersDb.postNewMessage(
+      req.user.id, 
+      message.messageTitle, 
+      message.messageContent
+    );
+    
+    res.redirect("/dashboard");
+  } catch (error) {
+    console.error(error);
+    next(error);
+  };
+});
+
+const createNewMessage = [validateMessage, postNewMessage];
+
 module.exports = {
   getHomePage,
   getRegistrationForm,
   createNewUser,
   getLoginPage,
   getDashboard,
+  getNewMessageForm,
+  createNewMessage,
 }
