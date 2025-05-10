@@ -97,8 +97,10 @@ const getLoginPage = asyncHandler(async (req, res, next) => {
 });
 
 const getDashboard = asyncHandler(async (req, res, next) => {
+  const data = await membersDb.getAllMessages();
+
   if (req.isAuthenticated()) {
-    res.render("dashboard", { title: "Dashboard", user: req.user });
+    res.render("dashboard", { title: "Dashboard", user: req.user, messages: data });
   } else {
     res.redirect("/login");
   }
@@ -153,6 +155,15 @@ const postNewMessage = asyncHandler(async (req, res, next) => {
 });
 
 const createNewMessage = [validateMessage, postNewMessage];
+
+const getAllMessages = asyncHandler(async (req, res, next) => {
+  if (req.isAuthenticated()) {
+    // pass in the message author, date, title, and contents
+    const data = membersDb.getAllMessages();
+  } else {
+    // pass in only the message date, title, and contents
+  }
+});
 
 module.exports = {
   getHomePage,

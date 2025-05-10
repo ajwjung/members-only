@@ -70,9 +70,34 @@ async function postNewMessage(userId, messageTitle, messageContent) {
   };
 };
 
+async function getAllMessages() {
+  const SQL = `
+    SELECT messages.id AS id,
+          members.fullname AS author,
+          messages.date AS date,
+          messages.title AS title,
+          messages.content AS content
+    FROM messages
+    LEFT JOIN members
+    ON messages.author = members.id;
+  `;
+
+  try {
+    const { rows } = await pool.query(SQL);
+    return rows;
+  } catch (error) {
+    console.error("Error getting messages from database", {
+      message: error.message,
+      stack: error.stack,
+      query: SQL
+    });
+  }
+};
+
 module.exports = {
   addNewUser,
   getUserByUsername,
   getUserById,
   postNewMessage,
-}
+  getAllMessages,
+};

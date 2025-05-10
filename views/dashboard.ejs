@@ -8,6 +8,20 @@
 <body>
   <h1>Welcome Back, <%= user.fullname %>!</h1>
   
+  <% messages.forEach(function(message) { %>
+    <div class="message">
+      <h2 class="message-title"><%= message.title %></h2>
+  
+      <% if (user.membership) { %>
+        <h3>Posted by <%= message.author %> on <%= message.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></h3>
+      <% } else { %>
+        <h3>Posted by Anonymous on <%= message.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></h3>
+      <% } %>
+  
+      <p><%= message.content %></p>
+    </div>
+  <% }); %>
+
   <ul class="list">
     <li class="list-item">
       <a href="/">Back to Home</a>

@@ -3,7 +3,6 @@
 require("dotenv").config();
 
 const { Client } = require("pg");
-const bcrypt = require("bcryptjs");
 
 // Remember to encrypt the password using bcryptjs when inserting data
 const SQL = `
