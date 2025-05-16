@@ -5,6 +5,7 @@ const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
 require("./config/passport");
+const flash = require("connect-flash");
 const membersRouter = require("./routes/membersRouter");
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(session({
   resave: false, 
   saveUninitialized: false 
 }));
+app.use(flash());
 app.use(passport.session());
 
 app.use("/", membersRouter);

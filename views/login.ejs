@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Log In</title>
-</head>
-<body>
-  <h1>Log In</h1>
-  <form action="/login" method="POST">
-    <div class="form-field">
-      <label for="username">Username (email):</label>
-      <input type="email" name="username" id="username">
-    </div>
-    <div class="form-field">
-      <label for="password">Password:</label>
-      <input type="password" name="password" id="password">
-    </div>
-    <button type="submit">Log In</button>
-  </form>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+  </head>
+  <body>
+    <h1>Log In</h1>
 
-  <a href="/">Back to Home</a>
-</body>
+    <% if (messages && messages.length > 0) { %>
+      <div class="flash-error">
+        <% messages.forEach(function(message) { %>
+          <p><%= message %></p>
+        <% }); %>
+      </div>
+    <% } %>
+
+    <form action="/login" method="POST">
+      <div class="form-field">
+        <label for="username">Username (email):</label>
+        <input type="email" name="username" id="username" required>
+      </div>
+      <div class="form-field">
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+      </div>
+      <button type="submit">Log In</button>
+    </form>
+
+    <a href="/">Back to Home</a>
+  </body>
 </html>

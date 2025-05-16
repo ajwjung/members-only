@@ -14,6 +14,7 @@ membersRouter.get("/login", membersController.getLoginPage);
 membersRouter.post("/login", passport.authenticate("local", {
   successRedirect: "/dashboard",
   failureRedirect: "/login",
+  failureFlash: true,
 }));
 
 membersRouter.get("/messages/new", membersController.getNewMessageForm);

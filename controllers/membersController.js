@@ -84,7 +84,7 @@ const postUserToDb = asyncHandler(async (req, res, next) => {
     console.error(error);
     next(error);
   };
-})
+});
 
 const createNewUser = [validateUserInfo, postUserToDb];
 
@@ -92,7 +92,10 @@ const getLoginPage = asyncHandler(async (req, res, next) => {
   if (req.isAuthenticated()) {
     res.redirect("/dashboard");
   } else {
-    res.render("login", { title: "Login" });
+    res.render("login", { 
+      title: "Login",
+      messages: req.flash("error")
+     });
   }
 });
 
@@ -164,4 +167,4 @@ module.exports = {
   getDashboard,
   getNewMessageForm,
   createNewMessage,
-}
+};
