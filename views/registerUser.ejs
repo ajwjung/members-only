@@ -21,11 +21,23 @@
     <form action="/users/register" method="POST">
       <div class="form-field">
         <label for="fullname">Full name:</label>
-        <input type="text" name="fullName" id="fullname" required>
+        <input 
+          type="text" 
+          name="fullName" 
+          id="fullname" 
+          value="<%= formData?.fullName || '' %>" 
+          required
+        >
       </div>
       <div class="form-field">
         <label for="username">Username (email):</label>
-        <input type="email" name="username" id="username" required>
+        <input 
+          type="email" 
+          name="username" 
+          id="username" 
+          value="<%= formData?.username || '' %>"
+          required
+        >
       </div>
       <div class="form-field">
         <label for="password">Password:</label>

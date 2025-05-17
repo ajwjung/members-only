@@ -63,6 +63,7 @@ const postUserToDb = asyncHandler(async (req, res, next) => {
     return res.status(400).render("registerUser", {
       title: "Register New User",
       errors: errors.array(),
+      formData: req.body
     });
   };
 
