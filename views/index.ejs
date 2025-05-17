@@ -9,6 +9,7 @@
   <h1><%= title %></h1>
   <% if (locals.user) { %>
     <p>Welcome back to the Club House, <%= user.fullname %>!</p>
+    <%- include("partials/logout") %>
     <a href="/dashboard">Go to Dashboard</a>
   <% } else { %>
     <p>Welcome to the Club House!</p>

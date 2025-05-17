@@ -20,4 +20,6 @@ membersRouter.post("/login", passport.authenticate("local", {
 membersRouter.get("/messages/new", membersController.getNewMessageForm);
 membersRouter.post("/messages/new", membersController.createNewMessage);
 
+membersRouter.get("/logout", membersController.logUserOut);
+
 module.exports = membersRouter;

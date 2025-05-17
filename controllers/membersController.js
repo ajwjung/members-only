@@ -111,7 +111,7 @@ const getDashboard = asyncHandler(async (req, res, next) => {
 
 const getNewMessageForm = asyncHandler(async (req, res, next) => {
   if (req.isAuthenticated()) {
-    res.render("createMessage", { title: "New Message" });
+    res.render("createMessage", { title: "New Message", user: req.user });
   } else {
     res.redirect("/login");
   }
@@ -159,6 +159,16 @@ const postNewMessage = asyncHandler(async (req, res, next) => {
 
 const createNewMessage = [validateMessage, postNewMessage];
 
+const logUserOut = asyncHandler(async (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    };
+
+    res.redirect("/");
+  });
+});
+
 module.exports = {
   getHomePage,
   getRegistrationForm,
@@ -167,4 +177,5 @@ module.exports = {
   getDashboard,
   getNewMessageForm,
   createNewMessage,
+  logUserOut
 };
