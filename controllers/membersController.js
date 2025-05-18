@@ -13,9 +13,9 @@ const getHomePage = asyncHandler(async (req, res, next) => {
 
 const getRegistrationForm = asyncHandler(async (req, res, next) => {
   if (req.isAuthenticated()) {
-    res.redirect("/dashboard");
+    res.redirect("/dashboard", { formData: '' });
   } else {
-    res.render("registerUser", { title: "User Registration", });
+    res.render("registerUser", { title: "User Registration", formData: '' });
   }
 });
 
@@ -33,16 +33,8 @@ const validateUserInfo = [
   body("password").trim()
     .matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)
     .withMessage(`Password ${passwordErr}`),
-  body("membershipStatus")
-    .customSanitizer((value, { req }) => {
-      // If value is an array with checkbox and hidden field, then take the last value
-      if (Array.isArray(value)) {
-        return value[value.length - 1];
-      };
-
-      return value;
-    })
-    .isBoolean().withMessage(`Membership status ${boolErr}`),
+  body("membershipPassword").trim()
+    .optional({ checkFalsy: true }),
   body("adminStatus")
     .customSanitizer((value, { req }) => {
       // If value is an array with checkbox and hidden field, then take the last value
@@ -52,7 +44,7 @@ const validateUserInfo = [
 
       return value;
     })
-    .isBoolean().withMessage(`Membership status ${boolErr}`)
+    .isBoolean().withMessage(`Admin status ${boolErr}`)
 ];
 
 const postUserToDb = asyncHandler(async (req, res, next) => {
@@ -70,13 +62,33 @@ const postUserToDb = asyncHandler(async (req, res, next) => {
   try {
     const data = req.body;
     const hashedPassword = await bcrypt.hash(data.password, 10);
+    const membershipPassword = data.membershipPassword;
+    
+    let isPrivateMember = false;
+
+    if (membershipPassword) {
+      const membershipIsValid = await bcrypt.compare(
+        membershipPassword, 
+        process.env.MEMBERSHIP_HASH
+      );
+
+      if (!membershipIsValid) {
+        return res.status(400).render("registerUser", {
+          title: "Register New User",
+          errors: [{ msg: "Invalid membership password." }],
+          formData: req.body
+        })
+      };
+
+      isPrivateMember = true;
+    };
   
     // POST to db
     await membersDb.addNewUser(
       data.fullName, 
       data.username, 
       hashedPassword, 
-      data.membershipStatus, 
+      isPrivateMember, 
       data.adminStatus
     );
   
