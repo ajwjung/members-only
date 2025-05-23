@@ -94,10 +94,28 @@ async function getAllMessages() {
   }
 };
 
+async function deleteMessageById(messageId) {
+  const SQL = `
+    DELETE FROM messages
+    WHERE messages.id = $1;
+  `;
+
+  try {
+    await pool.query(SQL, [messageId]);
+  } catch (error) {
+    console.error("Error deleting message from database", {
+      message: error.message,
+      stack: error.stack,
+      query: SQL
+    });
+  };
+};
+
 module.exports = {
   addNewUser,
   getUserByUsername,
   getUserById,
   postNewMessage,
   getAllMessages,
+  deleteMessageById,
 };

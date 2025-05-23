@@ -20,6 +20,12 @@
       <% } %>
   
       <p><%= message.content %></p>
+
+      <% if (user.admin) { %>
+        <form action="/messages/<%= message.id %>?_method=DELETE" method="POST">
+          <button type="submit">Delete Post</button>
+        </form>
+      <% } %>
     </div>
   <% }); %>
 

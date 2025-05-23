@@ -22,4 +22,10 @@ membersRouter.post("/messages/new", membersController.createNewMessage);
 
 membersRouter.get("/logout", membersController.logUserOut);
 
+membersRouter.delete(
+  "/messages/:messageId", 
+  membersController.ensureAdmin, 
+  membersController.deleteMessageById
+);
+
 module.exports = membersRouter;

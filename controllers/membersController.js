@@ -182,6 +182,27 @@ const logUserOut = asyncHandler(async (req, res, next) => {
   });
 });
 
+const ensureAdmin = asyncHandler(async(req, res, next) => {
+  // User must be logged in and an admin to delete message
+  if (req.isAuthenticated() && req.user.admin) {
+    return next();
+  };
+
+  res.status(403).send("Forbidden");
+});
+
+const deleteMessageById = asyncHandler(async (req, res, next) => {
+  const messageId = req.params.messageId;
+
+  try {
+    await membersDb.deleteMessageById(messageId);
+    res.redirect("/dashboard");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  };
+});
+
 module.exports = {
   getHomePage,
   getRegistrationForm,
@@ -190,5 +211,7 @@ module.exports = {
   getDashboard,
   getNewMessageForm,
   createNewMessage,
-  logUserOut
+  logUserOut,
+  ensureAdmin,
+  deleteMessageById,
 };
