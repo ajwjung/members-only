@@ -5,9 +5,9 @@
     <div class="container">
       <h1><%= title %></h1>
 
-      <%- include("partials/logout") %>
-
       <% if (locals.user) { %>
+        <%- include("partials/logout") %>
+        
         <p>Welcome back to the Club House, <%= user.fullname %>!</p>
         <a href="/dashboard">Go to Dashboard</a>
       <% } else { %>
