@@ -1,45 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %></title>
-</head>
-<body>
-  <h1>Create a New Message</h1>
-  <%- include("partials/logout") %>
-  <form action="/messages/new" method="POST">
-    <div class="form-field">
-      <label for="message-title">Message Title:</label>
-      <input 
-        type="text" 
-        name="messageTitle" 
-        id="message-title" 
-        minlength="2" 
-        maxlength="60" 
-        required
-      />
+  <%- include("partials/head", { title: title }) %>
+  <body>
+    <div class="container">
+      <h1>Create a New Message</h1>
+      <%- include("partials/logout") %>
+      <form action="/messages/new" method="POST">
+        <div class="form-field">
+          <label for="message-title">Message Title:</label>
+          <input
+            type="text"
+            name="messageTitle"
+            id="message-title"
+            minlength="2"
+            maxlength="60"
+            required
+          />
+        </div>
+        <div class="form-field">
+          <label for="message-content">Message:</label>
+          <textarea
+            name="messageContent"
+            id="message-content"
+            minlength="2"
+            maxlength="5000"
+            required
+          ></textarea>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+      <ul class="list">
+        <li class="list-item">
+          <a href="/">Back to Home</a>
+        </li>
+        <li class="list-item">
+          <a href="/dashboard">Back to Dashboard</a>
+        </li>
+      </ul>
     </div>
-    <div class="form-field">
-      <label for="message-content">Message:</label>
-      <textarea 
-        name="messageContent" 
-        id="message-content" 
-        minlength="2"
-        maxlength="5000"
-        required
-      ></textarea>
-    </div>
-    <button type="submit">Submit</button>
-  </form>
-
-  <ul className="list">
-    <li className="list-item">
-      <a href="/">Back to Home</a>
-    </li>
-    <li className="list-item">
-      <a href="/dashboard">Back to Dashboard</a>
-    </li>
-  </ul>
-</body>
+  </body>
 </html>

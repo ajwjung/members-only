@@ -1,77 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
-  </head>
+  <%- include("partials/head", { title: title }) %>
   <body>
-    <h1>Register a New User</h1>
-
-    <% if (typeof errors !== "undefined" && errors.length > 0) { %>
-      <div class="error-messages">
-        <ul>
-          <% errors.forEach(function(error) { %>
-            <li><%= error.msg %></li>
-          <% }) %>
-        </ul>
-      </div>
-    <% } %>
-
-    <form action="/users/register" method="POST">
-      <div class="form-field">
-        <label for="fullname">Full name:</label>
-        <input 
-          type="text" 
-          name="fullName" 
-          id="fullname" 
-          value="<%= formData?.fullName || '' %>" 
-          required
-        >
-      </div>
-      <div class="form-field">
-        <label for="username">Username (email):</label>
-        <input 
-          type="email" 
-          name="username" 
-          id="username" 
-          value="<%= formData?.username || '' %>"
-          required
-        >
-      </div>
-      <div class="form-field">
-        <label for="password">Password:</label>
-        <input 
-          type="password" 
-          name="password" 
-          id="password" 
-          required
-        >
-      </div>
-      <div class="form-field">
-        <label for="membership-password">What's the secret password to the clubhouse? (optional)</label>
-        <input 
-          type="password" 
-          name="membershipPassword" 
-          id="membership-password"
-        >
-      </div>
-      <div class="form-field">
-        <label for="admin-status">Are you an admin?</label>
-        <input type="hidden" name="adminStatus" value="false">
-        <input 
-          type="checkbox" 
-          name="adminStatus" 
-          id="admin-status" 
-          value="true"
-        >
-      </div>
-      <button type="submit">Submit</button>
-    </form>
-
-    <ul>
-      <li><a href="/">Back to Home</a></li>
-      <li><a href="/login">Returning User? Log In</a></li>
-    </ul>
+    <div class="container">
+      <h1>Register a New User</h1>
+      <% if (typeof errors !== "undefined" && errors.length > 0) { %>
+        <div class="error-messages">
+          <ul>
+            <% errors.forEach(function(error) { %>
+              <li><%= error.msg %></li>
+            <% }) %>
+          </ul>
+        </div>
+      <% } %>
+      <form action="/users/register" method="POST">
+        <div class="form-field">
+          <label for="fullname">Full name:</label>
+          <input
+            type="text"
+            name="fullName"
+            id="fullname"
+            value="<%= formData?.fullName || '' %>"
+            required
+          >
+        </div>
+        <div class="form-field">
+          <label for="username">Username (email):</label>
+          <input
+            type="email"
+            name="username"
+            id="username"
+            value="<%= formData?.username || '' %>"
+            required
+          >
+        </div>
+        <div class="form-field">
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            required
+          >
+        </div>
+        <div class="form-field">
+          <label for="membership-password">What's the secret password to the clubhouse? (optional)</label>
+          <input
+            type="password"
+            name="membershipPassword"
+            id="membership-password"
+          >
+        </div>
+        <div class="form-field">
+          <label for="admin-status">Are you an admin?</label>
+          <input type="hidden" name="adminStatus" value="false">
+          <input
+            type="checkbox"
+            name="adminStatus"
+            id="admin-status"
+            value="true"
+          >
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+      <ul class="list">
+        <li class="list-item">
+          <a href="/">Back to Home</a>
+        </li>
+        <li class="list-item">
+          <a href="/login">Returning User? Log In</a>
+        </li>
+      </ul>
+    </div>
   </body>
 </html>

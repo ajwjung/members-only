@@ -16,6 +16,8 @@ app.set("view engine", "ejs");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
+app.use("/styles", express.static(path.join(__dirname, "styles")));
+
 app.use(session({ 
   secret: "acnh", 
   resave: false, 

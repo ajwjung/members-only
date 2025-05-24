@@ -1,41 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %></title>
-</head>
-<body>
-  <h1>Welcome Back, <%= user.fullname %>!</h1>
-  <%- include("partials/logout") %>
-  
-  <% messages.forEach(function(message) { %>
-    <div class="message">
-      <h2 class="message-title"><%= message.title %></h2>
-  
-      <% if (user.membership) { %>
-        <h3>Posted by <%= message.author %> on <%= message.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></h3>
-      <% } else { %>
-        <h3>Posted by Anonymous on <%= message.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></h3>
-      <% } %>
-  
-      <p><%= message.content %></p>
-
-      <% if (user.admin) { %>
-        <form action="/messages/<%= message.id %>?_method=DELETE" method="POST">
-          <button type="submit">Delete Post</button>
-        </form>
-      <% } %>
+  <%- include("partials/head", { title: title }) %>
+  <body>
+    <div class="container">
+      <h1>Welcome Back, <%= user.fullname %>!</h1>
+      <%- include("partials/logout") %>
+      
+      <% messages.forEach(function(message) { %>
+        <div class="message">
+          <h2 class="message-title"><%= message.title %></h2>
+      
+          <% if (user.membership) { %>
+            <h3>Posted by <%= message.author %> on <%= message.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></h3>
+          <% } else { %>
+            <h3>Posted by Anonymous on <%= message.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></h3>
+          <% } %>
+      
+          <p><%= message.content %></p>
+          <% if (user.admin) { %>
+            <form action="/messages/<%= message.id %>?_method=DELETE" method="POST">
+              <button type="submit">Delete Post</button>
+            </form>
+          <% } %>
+        </div>
+      <% }); %>
+      
+      <ul class="list">
+        <li class="list-item">
+          <a href="/">Back to Home</a>
+        </li>
+        <li class="list-item">
+          <a href="/messages/new">Create a New Message</a>
+        </li>
+      </ul>
     </div>
-  <% }); %>
-
-  <ul class="list">
-    <li class="list-item">
-      <a href="/">Back to Home</a>
-    </li>
-    <li class="list-item">
-      <a href="/messages/new">Create a New Message</a>
-    </li>
-  </ul>
-</body>
+  </body>
 </html>

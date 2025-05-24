@@ -1,0 +1,43 @@
+@import url("./home.css");
+@import url("./register.css");
+@import url("./dashboard.css");
+@import url("./logout.css");
+
+:root {
+  --black: rgb(50, 50, 50);
+  --yellow: rgb(255, 204, 36);
+  --offwhite:rgb(255, 248, 240);
+  --font: "Fredoka"
+}
+
+* {
+  font-family: var(--font);
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  margin: 0 auto;
+  background: var(--yellow);
+}
+
+.container {
+  padding: 1rem;
+  margin: 1rem;
+}
+
+h1 {
+  text-transform: uppercase;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0.5rem;
+}
+
+.form-field {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}

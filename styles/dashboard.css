@@ -1,0 +1,40 @@
+.message {
+  border: 5px solid var(--black);
+  border-radius: 25px;
+  box-shadow: 0px 5px 0px 2px var(--offwhite);
+  padding: 2rem;
+  margin: 1rem;
+
+  display: grid;
+  grid-template-columns: 3fr 3fr 2fr;
+}
+
+.message:last-of-type {
+  margin-bottom: 2rem;
+}
+
+.message-title {
+  grid-column: 1 / span 2;
+  grid-row: 1;
+}
+
+h3 {
+  font-weight: 600;
+  grid-column: 1 / span 3;
+  grid-row: 2;
+}
+
+p {
+  grid-column: 1 / span 3;
+  grid-row: 3;
+}
+
+form {
+  margin: 0;
+  grid-column: 3;
+  grid-row: 1;
+}
+
+form {
+  margin: 0;
+}
