@@ -5,9 +5,9 @@ const membersDb = require("../db/queries");
 
 const getHomePage = asyncHandler(async (req, res, next) => {
   if (req.isAuthenticated()) {
-    res.render("index", { title: "Home Page", user: req.user });
+    res.render("index", { title: "Club House", user: req.user });
   } else {
-    res.render("index", { title: "Home Page" });
+    res.render("index", { title: "Club House" });
   }
 });
 
